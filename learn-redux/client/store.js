@@ -12,9 +12,14 @@ const defaultState = {
   //es6: if key = value then we don't need 'key: value' syntax, just 'value'
   posts,
   comments
-}
+};
 
-const store = createStore(rootReducer, defaultState);
+// allows chrome dev tools to see the store
+const enhancers = compose(
+  window.devToolsExtension ? window.devToolsExtension() : (f) => f
+);
+
+const store = createStore(rootReducer, defaultState, enhancers);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
